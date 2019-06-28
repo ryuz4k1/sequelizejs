@@ -8,3 +8,22 @@ npm install --save tedious # Microsoft SQL Server
 
 
 Connection
+const sequelize = new Sequelize('postgres://postgres:roller17@127.0.0.1/RoCore', {
+  dialect: "postgres",
+  dialectOptions: { decimalNumbers: true },
+  logging: false,
+  pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+  },
+  define: {
+      freezeTableName: true,
+      defaultScope: {
+          attributes: {
+              exclude: ["createdAt", "updatedAt"]
+          }
+      }
+  }
+});

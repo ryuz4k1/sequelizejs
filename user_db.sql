@@ -1,14 +1,10 @@
 CREATE TABLE users (
 	user_id SERIAL PRIMARY KEY NOT NULL,
-	is_active BOOL DEFAULT false NOT NULL,
-	is_deleted BOOL DEFAULT false NOT NULL,
 	first_name VARCHAR(255) NOT NULL,
 	last_name VARCHAR(255) NOT NULL,
 	email VARCHAR(255) NOT NULL,
 	phone VARCHAR(16) NOT NULL UNIQUE,
 	password VARCHAR(64) NOT NULL,
 	image VARCHAR(255),
-	verification_code VARCHAR(5),
-	external_id VARCHAR(255),
 	create_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
