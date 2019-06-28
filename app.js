@@ -1,0 +1,27 @@
+"use strict";
+const express   = require('express');
+const app       = express();
+const db        = require('./src/db')
+
+require("dotenv").config();
+
+db.authenticate().then(() => {
+    console.log('Connection has been established successfully.');
+  }).catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+
+
+app.get('/',(req,res) => {
+    return res.send('Hello World');
+})
+
+
+
+
+
+
+
+
+const port = process.env.PORT || 3000;
+app.listen(port,() => console.log(`Listening on port ${port}...`));
