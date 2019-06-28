@@ -3,31 +3,31 @@ const Sequelize = require('sequelize');
 
 const User = db.define('users', {
     //attributes
-    userId: {
-      field: "userId",
+    user_id: {
+      field: "user_id",
       type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
-    isActive: {
-      field: "isActive",
+    is_active: {
+      field: "is_active",
+      type: Sequelize.BOOLEAN,
+      allowNull: true,
+      defaultValue: false
+    },
+    is_deleted: {
+      field: "is_deleted",
       type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: false
     },
-    isDeleted: {
-      field: "isDeleted",
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
-    },
-    firstName: {
-      field: "firstName",
+    first_name: {
+      field: "first_name",
       type: Sequelize.STRING(255),
       allowNull: false
     },
-    lastName: {
-      field: "secondName",
+    last_name: {
+      field: "last_name",
       type: Sequelize.STRING(255),
       allowNull:false
     },
@@ -50,7 +50,12 @@ const User = db.define('users', {
     image: {
       field: "image",
       type: Sequelize.STRING(255)
-  }
+  },
+  createOn: {
+    field: "create_on",
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW
+}
   }, { timestamps: false });
 
 module.exports = User; 

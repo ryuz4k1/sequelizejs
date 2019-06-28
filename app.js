@@ -3,6 +3,7 @@ const express         = require('express');
 const app             = express();
 const db              = require('./src/db')
 const userController  = require('./src/controller/user.controller')
+
 require("dotenv").config();
 
 
@@ -17,6 +18,7 @@ app.get('/',(req,res) => {
     return res.send('Hello World');
 });
 
+app.use(express.json());
 
 let router = express.Router();
 app.use("/", router);

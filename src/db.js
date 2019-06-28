@@ -14,7 +14,7 @@ const sequelize = new Sequelize('RoCore', 'postgres', 'roller17', {
 
 //Option 3
 // ... Postgres sequelize
-const sequelize = new Sequelize('postgres://postgres:roller17@127.0.0.1/RoCore', {
+const sequelize = new Sequelize('postgres://postgres:roller17@127.0.0.1/sequelize_db', {
   dialect: "postgres",
   dialectOptions: { decimalNumbers: true },
   logging: false,

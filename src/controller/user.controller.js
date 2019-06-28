@@ -12,13 +12,13 @@ class UserController{
         this.router.post("/login", this.login.bind(this));
     }
 
-    async login(req,res){
+    async login(req, res){
         try{
             const user = await User.findOne({ where: { phone: req.body.phone, password: req.body.password }});
             if (!user) {
                 return res.send("user not found");                
             }
-            return res.send("succes", user);
+            return res.status(201).send({"succes" : user});
         }
         catch(e){
             return res.send(e);
@@ -26,13 +26,18 @@ class UserController{
     }
     
     
-    async register(req,res){
+    async register(req, res){
+        console.log(req.body);
         try{
-            let user = await User.findOne({ where: req.body.phone });
+            let user = await User.findOne({ where: { phone: req.body.phone }});
     
             if (user) {
                 return res.send( "user already exist", user);
             }
+
+            user = await User.create(req.body);
+
+            return res.status(201).send({"succes" : user});
         }
         catch(e){
             return res.send(e);
@@ -40,7 +45,7 @@ class UserController{
         
     }
     
-    async users(req,res){
+    async users(req, res){
         try{
             let users = await User.findAll();
             return res.send(users);
