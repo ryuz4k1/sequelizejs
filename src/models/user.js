@@ -1,7 +1,7 @@
-const db        = require('./src/db')
+const db        = require('../db')
 const Sequelize = require('sequelize');
 
-const User= db.define('user', {
+const User = db.define('users', {
     //attributes
     userId: {
       field: "userId",
@@ -40,7 +40,7 @@ const User= db.define('user', {
       field: "phone",
       type: Sequelize.STRING(16),
       allowNull: false,
-      unique: true
+      unique: 'compositeIndex'
     },
     password: {
       field: "password",

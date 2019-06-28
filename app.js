@@ -1,9 +1,10 @@
 "use strict";
-const express   = require('express');
-const app       = express();
-const db        = require('./src/db')
-
+const express         = require('express');
+const app             = express();
+const db              = require('./src/db')
+const userController  = require('./src/controller/user.controller')
 require("dotenv").config();
+
 
 db.authenticate().then(() => {
     console.log('Connection has been established successfully.');
@@ -14,11 +15,12 @@ db.authenticate().then(() => {
 
 app.get('/',(req,res) => {
     return res.send('Hello World');
-})
+});
 
 
-
-
+let router = express.Router();
+app.use("/", router);
+new userController(router);
 
 
 
