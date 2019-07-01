@@ -1,7 +1,7 @@
 "use strict";
 const express         = require('express');
 const app             = express();
-const db              = require('./src/db')
+const db              = require('./src/helper/db');
 const userController  = require('./src/controller/user.controller')
 
 require("dotenv").config();

@@ -10,6 +10,7 @@ class UserController{
     routers() {
         this.router.post("/register", this.register.bind(this));
         this.router.post("/login", this.login.bind(this));
+        this.router.get("/users",this.users.bind(this));
     }
 
     async login(req, res){
