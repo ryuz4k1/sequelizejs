@@ -1,16 +1,24 @@
 const User      = require("../models/user");
+const Utils     = require("../helper/utils");
+const Op        = require('sequelize').Op;
+
+
 
 class UserController{
 
     constructor(router){
         this.router = router;
         this.routers();
+
+        this.utils = new Utils();
     }
 
     routers() {
         this.router.post("/register", this.register.bind(this));
         this.router.post("/login", this.login.bind(this));
         this.router.get("/users",this.users.bind(this));
+
+        this.router.get('/testCases',this.testCases.bind(this));
     }
 
     async login(req, res){
@@ -55,6 +63,40 @@ class UserController{
             return res.send(e);
         }
     }
+
+
+    async testCases(req,res) {
+
+        try{
+            let a1 = await User.findByPk(1);
+
+            // search for attributes
+            let a2 = await User.findOne({ where: {first_name: 'Murat'} })
+
+            
+            let a3 = await User.findAndCountAll({
+                where: {
+                    first_name: {
+                      [Op.like]: '%Murat%'
+                    }
+                 },
+                 limit: 2
+            });
+
+            console.log(a3.rows);
+            console.log(a3.count);
+            
+
+            return res.send({"a1":a1,"a2":a2,"a3":a3});
+        }
+        catch(e){
+            return res.send(e);
+        }
+
+
+
+    }
+
     
 }
 

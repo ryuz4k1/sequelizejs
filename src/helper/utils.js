@@ -1,9 +1,10 @@
+"use strict";
+
 const packageJson = require("../../package.json");
 
+class Utils {
 
-class Utils{
-    
-    setResult(){
+    setResult(code, message, data) {
         return result = {
             code: code,
             message: message,
@@ -17,10 +18,6 @@ class Utils{
             }
         }
     }
-
-
 }
-
-
 
 module.exports = Utils;
