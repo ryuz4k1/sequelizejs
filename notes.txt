@@ -387,6 +387,117 @@ something.findOne({
 
 
 
+count - Count the occurrences of elements in the database
+Project.count().then(c => {
+  console.log("There are " + c + " projects!")
+})
+
+Project.count({ where: {'id': {[Op.gt]: 25}} }).then(c => {
+  console.log("There are " + c + " projects with an id greater than 25.")
+})
+
+
+
+
+max - Get the greatest value of a specific attribute within a specific table
+/*
+  Let's assume 3 person objects with an attribute age.
+  The first one is 10 years old,
+  the second one is 5 years old,
+  the third one is 40 years old.
+*/
+Project.max('age').then(max => {
+  // this will return 40
+})
+
+Project.max('age', { where: { age: { [Op.lt]: 20 } } }).then(max => {
+  // will be 10
+})
+
+
+
+
+
+min - Get the least value of a specific attribute within a specific table
+/*
+  Let's assume 3 person objects with an attribute age.
+  The first one is 10 years old,
+  the second one is 5 years old,
+  the third one is 40 years old.
+*/
+Project.min('age').then(min => {
+  // this will return 5
+})
+
+Project.min('age', { where: { age: { [Op.gt]: 5 } } }).then(min => {
+  // will be 10
+})
+
+
+sum - Sum the value of specific attributes
+/*
+  Let's assume 3 person objects with an attribute age.
+  The first one is 10 years old,
+  the second one is 5 years old,
+  the third one is 40 years old.
+*/
+Project.sum('age').then(sum => {
+  // this will return 55
+})
+
+Project.sum('age', { where: { age: { [Op.gt]: 5 } } }).then(sum => {
+  // will be 50
+})
+
+
+
+
+Querying
+
+Attributes
+
+----------------------------------------------------------------
+To select only some attributes, you can use the attributes option. Most often, you pass an array:
+Model.findAll({
+  attributes: ['foo', 'bar']
+});
+
+SELECT foo, bar ...
+----------------------------------------------------------------
+Model.findAll({
+  attributes: ['foo', ['bar', 'baz']]
+});
+SELECT foo, bar AS baz ...
+----------------------------------------------------------------
+You can use sequelize.fn to do aggregations:
+Model.findAll({
+  attributes: [[sequelize.fn('COUNT', sequelize.col('hats')), 'no_hats']]
+});
+SELECT COUNT(hats) AS no_hats ...
+
+----------------------------------------------------------------
+// This is a tiresome way of getting the number of hats...
+Model.findAll({
+  attributes: ['id', 'foo', 'bar', 'baz', 'quz', [sequelize.fn('COUNT', sequelize.col('hats')), 'no_hats']]
+});
+
+// This is shorter, and less error prone because it still works if you add / remove attributes
+Model.findAll({
+  attributes: { include: [[sequelize.fn('COUNT', sequelize.col('hats')), 'no_hats']] }
+});
+SELECT id, foo, bar, baz, quz, COUNT(hats) AS no_hats ...
+
+----------------------------------------------------------------
+Model.findAll({
+  attributes: { exclude: ['baz'] }
+});
+
+SELECT id, foo, bar, quz ...
+
+
+
+
+
 
 
 

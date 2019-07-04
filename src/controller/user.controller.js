@@ -81,11 +81,7 @@ class UserController{
                     }
                  },
                  limit: 2
-            });
-
-            console.log(a3.rows);
-            console.log(a3.count);
-            
+            });            
 
             return res.send({"a1":a1,"a2":a2,"a3":a3});
         }
